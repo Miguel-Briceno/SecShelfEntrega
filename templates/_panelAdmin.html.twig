@@ -1,0 +1,22 @@
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="text-center mx-5 "><!-- Panel Administration -->
+        <div class="text-3xl font-bold my-5 uppercase">
+            <h2>Administration Panel</h2>
+        </div>
+        <div class="text-2xl grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4  gap-5 ">
+            <div class="flex flex-col justify-center items-center gap-2 py-1 px-5 text-xl btnfos-3 mb-5">
+                <a href="{{ path('app_shelf_index') }}" class="text-black py-2 px-6 sm:px-10">Shelf</a>
+            </div>
+            <div class="flex flex-col justify-center items-center gap-2 py-1 px-5 text-xl btnfos-3 mb-5">
+                <a href="{{ path('app_basket_index') }}" class="text-black py-2 px-6 sm:px-10">Basket</a>
+            </div>
+            <div class="flex flex-col justify-center items-center gap-2 py-1 px-5 text-xl btnfos-3 mb-5">
+                <a href="{{ path('app_product_index') }}" class="text-black py-2 px-6 sm:px-10">Product</a>
+            </div>            
+            <div class="flex flex-col justify-center items-center gap-2 py-1 px-5 text-xl btnfos-3 mb-5">
+                <a href="{{ path('app_admin') }}" class="text-black py-2 px-6 sm:px-10">Simulation</a>
+            </div>
+        </div>
+    
+    </div><!-- Panel Administration -->     
+     {% endif %}

@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shelf index{% endblock %}
+
+{% block body %}
+<div id="top"></div>
+{{ include('logout/logout.html.twig') }}   <!-- Logout --> 
+<div class="flex flex-col justify-center items-center m-5">
+    {{ include('components/navBar.html.twig') }}
+    <div class="text-center">
+      
+    {% for flash_message in app.flashes('success') %}{# successful send message #} 
+    <div class="text-green-800 text-xl py-5 text-center">
+        {{ flash_message }}
+    </div>
+    {% endfor %} 
+    
+    {% for message in app.flashes('error') %}
+        <div class="my-10 text-xl text-red-600 font-bold">
+            {{ message }}
+        </div>
+    {% endfor %}          
+        <h2 class="text-3xl font-bold uppercase m-5">shelf index</h2>
+        
+        <div class="grid grid-cols-2 place-content-between ">
+            <div class="max-w-32 text-left">
+                    {{ include('components/goBack.html.twig') }}
+            </div>      
+            <div class=" max-w-32 place-self-end  border-2 border-black hover:bg-green-500 text-black font-bold px-4 py-1 my-2 rounded shadow-black-400 shadow-xl">
+                <a class="" href="{{ path('app_shelf_new') }}">Create new</a>
+            </div>
+        </div>
+        
+        <table class="text-center  ">
+            <thead class=" bg-indigo-400  rounded">
+                <tr class=" ">
+                    <th class="px-5 py-1">Id</th>
+                    <th class="px-5 py-1">BasketCapacity</th>
+                    <th class="px-5 py-1">KgCapacity</th>
+                    <th class="px-5 py-1">DateTime</th>
+                    <th class="px-5 py-1">actions</th>
+                </tr>
+            </thead>
+            <tbody class="">
+            {% for shelf in shelves %}
+                <tr class="hover:bg-blue-100 ">
+                    <td class="">{{ shelf.id }}</td>
+                    <td>{{ shelf.basketCapacity }}</td>
+                    <td>{{ shelf.kgCapacity }}</td>
+                    <td>{{ shelf.dateTime ? shelf.dateTime|date('Y-m-d H:i:s') : '' }}</td>
+                    <td class="pl-5 py-1">
+                        <div class="flex flex-row justify-center items-center gap-1" >                            
+                            <div><button class="py-1 border-2 border-black hover:bg-yellow-500 text-black font-bold px-4  rounded shadow-black-400 shadow-xl"><a  href="{{ path('app_shelf_edit', {'id': shelf.id}) }}">edit</a></button></div>
+                            <div>
+                                <form method="post" action="{{ path('app_shelf_delete', {'id': shelf.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ shelf.id) }}">
+                                    <button class=" py-1 border-2 border-black hover:bg-red-500 text-black font-bold px-4  rounded shadow-black-400 shadow-xl">delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {{ include('components/backToTop.html.twig') }}  <!-- Back to top -->    
+</div>
+
+{% endblock %}

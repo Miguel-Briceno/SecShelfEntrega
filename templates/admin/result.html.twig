@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Basket Details{% endblock %}
+
+{% block body %}
+ {{ include('logout/logout.html.twig') }}   <!-- Logout -->
+    <div class="flex justify-center ">
+        {{ include('components/navBar.html.twig') }}
+    </div>
+    
+    <div class="flex flex-col lg:flex-row mt-5 ">
+    <!-- Aside -->  
+        
+        <aside class="flex-2 px-20">    
+            {{ include('_sidebar.html.twig') }}   
+        </aside>
+        <!-- Main -->
+    
+       <main class="flex flex-col mt-5 lg:mt-0 justify-center items-center mx-auto">
+            <div class="text-center py-2 mb-3">
+                <h1 class="mt-8 font-sans text-3xl tracking-wide font-bold text-blue-700">Result</h1> 
+             </div> 
+             <div class="max-w-96 mx-auto">    
+                <div class="max-w-32 text-left">
+                    {{ include('components/goBack.html.twig') }}
+                </div>  
+                <div>                    
+                    <p class="block text-blue-700 text-xl font-bold mb-2 uppercase ">pick up basket {{ idBasket }}</p>
+                    <p class="block text-gray-700 text-xl font-bold mb-2 "><span class="font-bold">Total Weight DDBB:</span> {{ weightSensor }}</p>
+                    <p class="block text-gray-700 text-xl font-bold mb-2 "><span class="font-bold">Total Weight Sensor: </span>{{ weightTotal }}</p>                       
+                </div>                           
+            </div>           
+        </div>                     
+        <div class="py-5 text-center">
+            {% for flash_message in app.flashes('error') %}{# error send message #} 
+                    <div class="text-red-700 text-xl py-5 text-center">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
+                {% for flash_message in app.flashes('success') %}{# successful send message #} 
+                <div class="text-green-800 text-xl">
+                    {{ flash_message }}
+                </div>
+                {% endfor %}
+        </div>                         
+                
+</main>
+</div>
+{% endblock %}

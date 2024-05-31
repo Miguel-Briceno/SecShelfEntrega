@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ViewController!{% endblock %}
+
+{% block body %}
+
+    {{ include('logout/logout.html.twig') }}   <!-- Logout -->
+    <div class="flex justify-center ">
+        {{ include('components/navBar.html.twig') }}
+    </div>
+    
+    <div class="flex flex-col lg:flex-row mt-5 ">
+    <!-- Aside -->  
+        
+        <aside class="flex-2 px-20">    
+            {{ include('_sidebar.html.twig') }}   
+        </aside>
+        <!-- Main -->
+       <main class="flex flex-col mt-5 lg:mt-0 justify-center items-center mx-auto">
+            <div class="text-center py-2 mb-3">
+                <h1 class="mt-8 font-sans text-3xl tracking-wide font-bold text-blue-700">Simulation</h1> 
+             </div> 
+             <div class="max-w-96 mx-auto">    
+                <div class="max-w-32 text-left">
+                    {{ include('components/goBack.html.twig') }}
+                </div>
+                     {{ form_start(form, {'attr': {'class': 'max-w-md mx-auto mt-10 bg-white rounded-lg shadow-md overflow-hidden px-4 py-4'}}) }}
+                <div class="mb-4">
+                    {{ form_label(form.idShelfBasket, 'Shelves', {'label_attr': {'class': 'block text-gray-700 text-sm font-bold mb-2'}}) }}
+                    {{ form_widget(form.idShelfBasket, {'attr': {'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}) }}
+                </div>                
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Select Shelf
+                </button>
+                <div class="text-center py-5">
+                   <button class=" py-1 border-2 border-black hover:bg-red-500 text-black font-bold px-4  rounded shadow-black-400 shadow-xl"><a href="{{ path('app_reset') }}">Reset</a></button>
+                </div>
+            </div>
+                {{ form_end(form) }}
+                {% for flash_message in app.flashes('error') %}{# error send message #} 
+                    <div class="text-red-700 text-xl py-5 text-center">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
+            <div class="py-5 text-center">
+                {% for flash_message in app.flashes('success') %}{# successful send message #} 
+                <div class="text-green-800 text-xl">
+                    {{ flash_message }}
+                </div>
+                {% endfor %}
+            </div>                  
+</main>
+</div>
+{% endblock %}
+
+
+

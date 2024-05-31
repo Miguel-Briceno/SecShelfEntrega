@@ -1,0 +1,17 @@
+
+{% apply inline_css %}
+       <container>
+        <row class="header">
+            <columns>                
+                <h1 style="color:red;">Alert!!! {{ email.ToName }}</h1>
+            </columns>                        
+        </row>
+        <row>
+            <columns>
+                <spacer size="12"></spacer>
+                <h2 style="font-size:24px;color:grey;" >This is a alert email from the Sec Shelf System.</h2>
+                <p style="font-size:16px;color:balck;">there has been an incidence in the shelf Nº {{ shelfId }} </p>
+                <p style="font-size:16px;color:balck;">specifically in basket Nº {{ basketId }}</p>
+            </columns>
+    </container>
+{% endapply %}

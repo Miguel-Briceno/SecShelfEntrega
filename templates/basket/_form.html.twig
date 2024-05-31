@@ -1,0 +1,27 @@
+<div class="max-w-96 mx-auto">
+    
+    <div class="max-w-32 text-left">
+            {{ include('components/goBack.html.twig') }}
+    </div>
+ {{ form_start(form, {'attr': {'class': 'max-w-md mx-auto mt-10 bg-white rounded-lg shadow-md overflow-hidden px-4 py-4'}}) }}
+
+<div class="mb-4">
+    {{ form_label(form.numProduct, 'Number of Products', {'label_attr': {'class': 'block text-gray-700 text-sm font-bold mb-2'}}) }}
+    {{ form_widget(form.numProduct, {'attr': {'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}) }}
+</div>
+
+<div class="mb-4">
+    {{ form_label(form.id_shelf_basket, 'Shelf', {'label_attr': {'class': 'block text-gray-700 text-sm font-bold mb-2'}}) }}
+    {{ form_widget(form.id_shelf_basket, {'attr': {'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}) }}
+</div>
+
+<div class="mb-4">
+    {{ form_label(form.id_basket_product, 'Product', {'label_attr': {'class': 'block text-gray-700 text-sm font-bold mb-2'}}) }}
+    {{ form_widget(form.id_basket_product, {'attr': {'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}) }}
+</div>
+
+<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    Save Basket
+</button>
+</div>
+{{ form_end(form) }}

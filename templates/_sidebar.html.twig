@@ -1,0 +1,30 @@
+
+<div class="flex flex-col items-center">
+    <div class="text-3xl font-bold uppercase mb-5"><!-- User Data -->
+        <h2>User Data</h2>
+    </div>
+
+        
+    
+    <div class="w-full">
+        <div class="drop-shadow-lg rounded-full overflow-hidden border-2 border-black max-w-40 mx-auto">
+            <img src="{{ asset('uploads/files/' ~ user.photo) }}" alt="Photo {{ user.firstName }}"  />
+        </div>
+        <div class="text-center  text-2xl">
+            <div class="font-bold my-5">
+                <p>Name: <span class="font-normal">{{ user.firstName }}</span></p>
+            </div>
+            <div class="font-bold my-5">
+                <p>Last Name: <span class="font-normal">{{ user.lastName }}</span></p>
+            </div>
+            <div class="font-bold my-5">
+                <p>Job Title: <span class="font-normal">{{ user.jobTitle }}</span></p>
+            </div>            
+        </div>
+    </div>
+  
+   
+</div>
+
+   
+

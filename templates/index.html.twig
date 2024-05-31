@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HomePage{% endblock %}
+
+{% block body %}
+<div class="flex justify-center p-10">
+    <div class="max-w-3xl">
+        <div class="px-5 xl:px-10 2xl:px-10 mb-5">
+            <img src="{{ asset('img/almacenes.webp') }}" alt="almacen" class="rounded-lg shadow-xl mx-auto mb-4"/>
+        </div> 
+        <div class="px-5 xl:px-10 2xl:px-10 mb-5">
+            <h1 class="text-3xl font-bold text-center uppercase">welcome to security shelf</h1>
+            <p class="text-lg font-bold text-center italic py-5">"ShelfGuard, ShelfGuard, ShelfSense y RackSmart"</p>  
+        </div>            
+        <div class="flex flex-row justify-around">
+            <div class="flex flex-col justify-center items-center gap-2 p-1  text-xl btnfos-3"> 
+                <p class="text-lg font-bold uppercase">register</p>
+                <a href="{{ path('app_register') }}">
+                    <img class="max-w-12" src="{{ asset('img/registro.svg') }}">
+                </a>                  
+            </div>
+            <div class="flex flex-col justify-center items-center gap-2 p-1 text-xl btnfos-3"> 
+                <p class="text-lg font-bold uppercase">login</p>
+                <a href="{{ path('app_login') }}">
+                    <img class="max-w-12" src="{{ asset('img/entrar.svg') }}">
+                </a>                  
+            </div>   
+        </div>
+    </div>   
+</div>
+{% endblock %}

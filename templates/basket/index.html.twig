@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Basket index{% endblock %}
+
+{% block body %}
+<div id="top"></div>
+{{ include('logout/logout.html.twig') }}   <!-- Logout --> 
+<div class="flex flex-col justify-center items-center m-5">
+    {{ include('components/navBar.html.twig') }} 
+    <div class="text-center">
+ 
+    {% for flash_message in app.flashes('success') %}{# successful send message #} 
+    <div class="text-green-800 text-xl py-5 text-center">
+        {{ flash_message }}
+    </div>
+    {% endfor %}
+    
+     {% for message in app.flashes('error') %}
+            <div class="my-10 text-xl text-red-600 font-bold">
+                {{ message }}
+            </div>
+        {% endfor %}          
+    <h2 class="text-3xl font-bold uppercase m-5">basket index</h2>
+    <div class="grid grid-cols-2 place-content-between ">
+        <div class="max-w-32 text-left">
+            {{ include('components/goBack.html.twig') }}
+        </div>      
+        <div class=" max-w-32 place-self-end  border-2 border-black hover:bg-green-500 text-black font-bold px-4 py-1 my-2 rounded shadow-black-400 shadow-xl">
+            <a class="" href="{{ path('app_basket_new') }}">Create new</a>
+        </div>
+    </div>
+    <table class="text-center">
+            <thead class=" bg-indigo-400 ">
+                <tr class=" ">
+                    <th class="px-5 py-1">Id</th>
+                    <th class="px-5 py-1">TotalWeight</th>
+                    <th class="px-5 py-1">NumProduct</th>
+                    <th class="px-5 py-1">DateTimeBasket</th>
+                    <th class="px-5 py-1">actions</th>
+                </tr>
+            </thead>
+            <tbody class="">
+            {% for basket in baskets %}
+                <tr class="hover:bg-blue-100 ">
+                    <td>{{ basket.id }}</td>
+                <td>{{ basket.totalWeight }}</td>
+                <td>{{ basket.numProduct }}</td>
+                <td>{{ basket.dateTimeBasket ? basket.dateTimeBasket|date('Y-m-d H:i:s') : '' }}</td>
+                    <td class="pl-5 py-1">
+                        <div class="flex flex-row justify-center items-center gap-1" >                            
+                            <div><button class="py-1 border-2 border-black hover:bg-yellow-500 text-black font-bold px-4  rounded shadow-black-400 shadow-xl"><a  href="{{ path('app_basket_edit', {'id': basket.id}) }}">edit</a></button></div>
+                        <div>
+                            <form method="post" action="{{ path('app_basket_delete', {'id': basket.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ basket.id) }}">
+                                <button class=" py-1 border-2 border-black hover:bg-red-500 text-black font-bold px-4  rounded shadow-black-400 shadow-xl">delete</button>
+                            </form>
+                        </div>                        
+                        
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>    
+    </div>  
+     {{ include('components/backToTop.html.twig') }} <!-- Back to top -->
+</div> 
+{% endblock %}

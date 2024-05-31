@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Basket{% endblock %}
+
+{% block body %}
+    {{ include('logout/logout.html.twig') }}<!-- Logout -->
+        <div class="flex flex-col justify-center  lg:flex-row mt-5"><!-- container -->
+  <!-- Aside -->  
+        <aside class="flex-2 px-20">     
+                {{ include('_sidebar.html.twig') }}   
+        </aside>
+  <!-- Main -->
+        <main class="flex-1  mt-5 border-4 border-violet-950  p-2 m-5  shadow-2xl shadow-violet-900 rounded-xl">             
+            <div class="flex-col text-center items-center "> 
+            <div class="max-w-96 mx-auto text-start">
+                {{ include('components/goBack.html.twig') }}
+            </div>                      
+                <div class="text-center mb-10 ">
+                    <h2 class="text-3xl font-bold uppercase">Basket Nº {{ numBasket  }}</h2>
+                     
+                <div class="container mx-auto py-8">
+                    <table class="max-w-96 mx-auto text-xl  border-2 border-black text-black py-2 px-8 sm:px-12 rounded shadow-black-400 shadow-2xl">
+                        <tbody>
+                             <tr class="hover:bg-blue-100">
+                                <th class="border-2 border-black text-black px-4 py-2">Product Id:</th>
+                                <td class="border-2 border-black text-black  px-4 py-2">{{ product.Id  }}</td>                                
+                            </tr>
+                            <tr class="hover:bg-blue-100">
+                                <th class="border-2 border-black text-black px-4 py-2">Product Name:</th>
+                                <td class="border-2 border-black text-black  px-4 py-2">{{ product.productName  }}</td>
+                                
+                            </tr>
+                            <tr class="hover:bg-blue-100">
+                                <th class="border-2 border-black  text-black px-4 py-2">Product Brand:</th>
+                                <td class="border-2 border-black text-black px-4 py-2">{{ product.productBrand }}</td>
+                                
+                            </tr>
+                            <tr class="hover:bg-blue-100">
+                                <th class="border-2 border-black text-black px-4 py-2">Product Model:</th>
+                                <td class="border-2 border-black text-black px-4 py-2">{{ product.productModel }}</td>
+                                
+                            </tr>
+                            <tr class="hover:bg-blue-100">
+                                <th class="border-2 border-black text-black px-4 py-2">Product Weight:</th>
+                                <td class="border-2 border-black text-black px-4 py-2">{{ product.productWeight }}</td>                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> 
+                {% for flash_message in app.flashes('error') %}{# error send message #} 
+                    <div class="text-red-700 text-xl py-5 text-center">
+                        {{ flash_message }}                        
+                    </div>                   
+                {% endfor %}
+            </div>
+         </div>
+  </main>    
+   
+{% endblock %}

@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #6366F1,#93C5FD,#6366F1 );
+    background-size: cover;
+    height: 100vh;
+}
+.custom-checkbox input[type="checkbox"]:checked + div svg {
+    display: block;
+}
+
+.custom-checkbox input[type="checkbox"]:not(:checked) + div svg {
+    display: none;
+}
+.btnfos-3 {
+    min-width: 120px;
+    border: 1px solid  #160575;
+    box-shadow: 0px 2px 0 #160575, 2px 4px 6px #160575;
+    font-weight: 900;
+    letter-spacing: 1px;
+    -webkit-transition: all 150ms linear;
+            transition: all 150ms linear;
+}  
+.btnfos-3:hover {
+    
+    border: 1px solid white;
+    box-shadow: 2px 2px 4px #eee;
+    color: #160575;
+    text-decoration: none;    
+    -webkit-transition: all 250ms linear;
+            transition: all 250ms linear;
+    min-width: 120px;
+}

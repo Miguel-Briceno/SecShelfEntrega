@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Shelf{% endblock %}
+
+{% block body %}
+<div class="text-center py-2 mb-3">
+        <h1 class="mt-8 font-sans text-3xl tracking-wide font-bold text-blue-700">Edit Shelf</h1> 
+</div> 
+ {{ include('shelf/_form.html.twig') }}
+ {% for flash_message in app.flashes('error') %}{# error send message #} 
+        <div class="text-red-700 text-xl py-5 text-center">
+            {{ flash_message }}
+        </div>
+    {% endfor %}   
+{% endblock %}

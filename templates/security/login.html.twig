@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<body><!-- body -->
+    <div class="max-w-screen-sm mx-auto my-24 py-10">     
+        <div class="mb-10">
+            <h1 class="text-3xl sm:text-4xl md:text-4xl text-indigo-600 text-center">Login here!!!</h1>
+        </div>
+        <div class="m-5">
+                    {% if error is not empty %}
+                        <div class="text-red-500 text-center text-xl">
+                            {{ error }}
+                        </div>
+                    {% endif %}
+                   
+            </div>
+        <div class="flex flex-col justify-center " ><!-- form  -->
+            <form action="{{ path('app_login') }}" method="POST" class="">                                           
+                    <div class="border border-indigo-500 rounded-md p-4 bg-white shadow-xl">
+                    <input
+                        type="email"
+                        value="{{ last_username }}"
+                        name="_username"
+                        placeholder="&#128373; Email"
+                        id="username"
+                        class="text-xl block bg-white border border-none rounded py-2 px-4 mb-4 w-full placeholder-sky-500"
+                        autocomplete="email"
+                        required
+                        autofocus
+                    />
+                    <hr class="border-y-4 border-indigo-500" />
+                    <input
+                        type="password"
+                        name="_password"
+                        placeholder="&#128274; Password"
+                        id="password"
+                        class="text-xl block w-full bg-white border border-none rounded py-2 px-4 mb-4 placeholder-sky-500"
+                        autocomplete="current-password"
+                        required
+                    />
+                    </div>
+                    <input
+                    type="hidden"
+                    name="_csrf_token"
+                    value="{{ csrf_token('authenticate') }}"
+                    />
+                    <div class="flex justify-center items-center my-4">
+                    <input
+                        type="checkbox"
+                        name="_remember_me"
+                        id="remember_me"
+                        class="mr-2"
+                    />
+                    {# If you want to control the URL the user is redirected to on success#}
+                    <input type="hidden" name="_target_path" value="{{ path('app_view') }}"> 
+                    <label for="remember_me" class="text-indigo-600 text-xl">Remember me</label>
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <button
+                    
+                    type="submit"
+                    name="login"
+                    class="text-center btnfos-3 bg-indigo-600 text-xl text-black  py-2 px-4 rounded hover:bg-indigo-700 w-full shadow-xl"
+                    >
+                    Entrar
+                    </button>                
+            </form>
+            </div><!-- form  -->
+                <div class="mt-9 text-center">
+                    <p class="text-indigo-600 text-xl ">forgot your password!!! <a class="btnfos-3 p-1" href="{{ path( 'app_forgot_password_request' )}}">Press here</a></p>
+                </div><!-- forget password -->
+                
+            <div class="flex flex-col justify-center items-center gap-4 pt-5 text-xl"> 
+                    <p class="text-lg font-bold">Go to registration</p>
+                    <a href="{{ path('app_register') }}">
+                        <img class="max-w-12" src="{{ asset('img/registro.svg') }}">
+                    </a>                  
+            </div>
+            
+        </div>   
+    </div><!-- flex full -->  
+</body><!-- end body -->
+{% endblock %}

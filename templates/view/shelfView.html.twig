@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ViewController!{% endblock %}
+
+{% block body %}
+    <div id="top"></div>
+    {{ include('logout/logout.html.twig') }}   <!-- Logout -->
+    {{ include('_panelAdmin.html.twig') }}
+    {% for flash_error in app.flashes('error_email') %}
+        <div class="my-10 text-center text-xl text-red-600 font-bold" role="alert">{{ flash_error }}</div>
+    {% endfor %} 
+    <div class="flex flex-col lg:flex-row mt-5 border-4 border-violet-950  p-2 m-5  shadow-2xl shadow-violet-900 rounded-xl">
+    <!-- Aside -->  
+        <aside class="flex-2 px-20">    
+            {{ include('_sidebar.html.twig') }}   
+        </aside>
+        <!-- Main -->
+        {% if shelves is defined %}        
+        <main class="flex flex-col  justify-center conten-center mt-5 lg:mt-0  mx-auto ">             
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-5 px-10">
+                    {% for item in shelves %}
+                        <div class="max-w-64 rounded-lg overflow-hidden shadow-black-400 shadow-2xl text-center mx-auto">                             
+                            <a href="{{ path('app_view_shelf', {'id': item.id }) }}">
+                                <img src="{{ asset('img/estante.webp') }}" alt="Shelf {{ item.id }}" class="w-full h-auto rounded-lg ">
+                            </a>
+                            {% set countShelf = countShelf|default(0) + 1 %}
+                            <div >
+                                <h2 class="text-lg font-bold">Shelf Nº {{ countShelf }}   </h2>                               
+                            </div>
+                            {% for item1 in shelvesIncidence %}                                                    
+                                {% if item1 == item  %}                                                      
+                                    <div class="bg-red-500" >
+                                        <p>ALERT</p>                         
+                                    </div>                               
+                                {% endif %} 
+                            {% endfor %}  
+                        </div>                    
+                    {% endfor %}                                     
+                </div> 
+                <div class="w-96 mx-auto">{{ include('components/backToTop.html.twig') }}</div> <!-- Back to top -->               
+        </main>
+        {% else %}            
+                <div class="flex flex-col justify-center items-center">
+                    <h2 class="text-2xl font-bold">No hay estantes disponibles</h2>                    
+                </div>            
+        {% endif %}        
+    </div>    
+{% endblock %}
