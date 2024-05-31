@@ -4,21 +4,22 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
-use App\Repository\UserRepository;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Repository\ProductRepository;
+use App\Repository\UserRepository;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 #[Route('/admin/product')]
 class ProductController extends AbstractController
 {
     private $userRepository;
     private $authenticationUtils;
+
     public function __construct(UserRepository $userRepository, AuthenticationUtils $authenticationUtils)
     {
         $this->userRepository = $userRepository;
@@ -49,7 +50,7 @@ class ProductController extends AbstractController
             $this->addFlash(
                 'success',
                 'Product created successfully!'
-             );
+            );
 
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -57,9 +58,10 @@ class ProductController extends AbstractController
             foreach ($form->getErrors(true) as $error) {
                 $this->addFlash(
                     'error',
-                    $error->getOrigin()->getName() . ': ' . $error->getMessage()
+                    $error->getOrigin()->getName().': '.$error->getMessage()
                 );
             }
+
             return $this->redirectToRoute('app_product_new', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -88,7 +90,7 @@ class ProductController extends AbstractController
             $this->addFlash(
                 'success',
                 'Product edit successfully!'
-             );
+            );
 
             return $this->redirectToRoute('app_product_index', ['id' => $product->getId()], Response::HTTP_SEE_OTHER);
         }
@@ -110,7 +112,7 @@ class ProductController extends AbstractController
                     'success',
                     'Product delete successfully!'
                 );
-            }       
+            }
         } catch (ForeignKeyConstraintViolationException $e) {
             $this->addFlash(
                 'error',
@@ -120,11 +122,12 @@ class ProductController extends AbstractController
 
         return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
     }
-    
+
     private function getViewUser($authentication, $userRepo)
     {
         $userEmail = $authentication->getLastUsername();
         $user = $userRepo->findOneBy(['email' => $userEmail]);
+
         return $user;
     }
 }

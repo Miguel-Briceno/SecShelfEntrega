@@ -3,12 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Shelf;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Validator\Constraints\GreaterThan;
-use Symfony\Component\Validator\Constraints\LessThan;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Validator\Constraints\LessThan;
 
 class ShelfType extends AbstractType
 {
@@ -21,17 +21,17 @@ class ShelfType extends AbstractType
             ],
             'constraints' => [
                 new GreaterThan(['value' => 0]),
-                new LessThan(['value' => 101])
-            ]
+                new LessThan(['value' => 101]),
+            ],
         ])
-        ->add('kgCapacity', NumberType::class, [            
+        ->add('kgCapacity', NumberType::class, [
             'attr' => [
                 'placeholder' => 'Capacity in kilograms of this rack',
             ],
             'constraints' => [
                 new GreaterThan(['value' => 0]),
-                new LessThan(['value' => 101])
-            ]
+                new LessThan(['value' => 101]),
+            ],
         ]);
     }
 

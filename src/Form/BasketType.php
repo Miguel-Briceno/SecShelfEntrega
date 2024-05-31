@@ -5,13 +5,13 @@ namespace App\Form;
 use App\Entity\Basket;
 use App\Entity\Product;
 use App\Entity\Shelf;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Validator\Constraints\GreaterThan;
-use Symfony\Component\Validator\Constraints\LessThan;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Validator\Constraints\LessThan;
 
 class BasketType extends AbstractType
 {
@@ -24,9 +24,9 @@ class BasketType extends AbstractType
             ],
             'constraints' => [
                 new GreaterThan(['value' => 0]),
-                new LessThan(['value' => 101])
-            ]
-        ])                  
+                new LessThan(['value' => 101]),
+            ],
+        ])
         ->add('id_shelf_basket', EntityType::class, [
             'class' => Shelf::class,
             'choice_label' => 'id',
@@ -34,7 +34,7 @@ class BasketType extends AbstractType
         ->add('id_basket_product', EntityType::class, [
             'class' => Product::class,
             'choice_label' => 'productName',
-        ]);         
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

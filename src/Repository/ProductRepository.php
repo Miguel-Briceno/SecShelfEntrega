@@ -15,6 +15,7 @@ class ProductRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Product::class);
     }
+
     public function findProductWithLowestWeight(): ?Product
     {
         return $this->createQueryBuilder('p')
@@ -23,8 +24,6 @@ class ProductRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
-    
-
 
     //    /**
     //     * @return Product[] Returns an array of Product objects

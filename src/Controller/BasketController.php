@@ -3,17 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Basket;
-
 use App\Form\BasketType;
-use App\Repository\UserRepository;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Repository\BasketRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 #[Route('/admin/basket')]
 class BasketController extends AbstractController
@@ -21,14 +19,12 @@ class BasketController extends AbstractController
     private $userRepository;
     private $authenticationUtils;
     private $entityManager;
-    
 
     public function __construct(UserRepository $userRepository, AuthenticationUtils $authenticationUtils, EntityManagerInterface $entityManager)
     {
         $this->userRepository = $userRepository;
         $this->authenticationUtils = $authenticationUtils;
         $this->entityManager = $entityManager;
-       
     }
 
     #[Route('/', name: 'app_basket_index', methods: ['GET'])]
@@ -49,13 +45,13 @@ class BasketController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getViewUser($this->authenticationUtils, $this->userRepository);
             $basket->setIdUserBasket($user);
-            $basket->setIncidencia("0");
+            $basket->setIncidencia('0');
             $basket->setDateTimeBasket(new \DateTime());
-            $basket->setTotalWeight($this->getWeigtTotal( $basket)); //se carga el peso total de la cesta
+            $basket->setTotalWeight($this->getWeigtTotal($basket)); // se carga el peso total de la cesta
             $this->addFlash(
                 'success',
                 'Basket created successfully!'
-             );
+            );
             $this->entityManager->persist($basket);
             $this->entityManager->flush();
 
@@ -65,9 +61,10 @@ class BasketController extends AbstractController
             foreach ($form->getErrors(true) as $error) {
                 $this->addFlash(
                     'error',
-                    $error->getOrigin()->getName() . ': ' . $error->getMessage()
+                    $error->getOrigin()->getName().': '.$error->getMessage()
                 );
             }
+
             return $this->redirectToRoute('app_basket_new', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -92,11 +89,16 @@ class BasketController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getViewUser($this->authenticationUtils, $this->userRepository);
+            $basket->setIdUserBasket($user);
+            $basket->setIncidencia('0');
+            $basket->setDateTimeBasket(new \DateTime());
+            $basket->setTotalWeight($this->getWeigtTotal($basket));
             $this->entityManager->flush();
             $this->addFlash(
                 'success',
                 'Basket edit successfully!'
-             );
+            );
 
             return $this->redirectToRoute('app_basket_index', ['id' => $basket->getId()], Response::HTTP_SEE_OTHER);
         }
@@ -104,9 +106,10 @@ class BasketController extends AbstractController
             foreach ($form->getErrors(true) as $error) {
                 $this->addFlash(
                     'error',
-                    $error->getOrigin()->getName() . ': ' . $error->getMessage()
+                    $error->getOrigin()->getName().': '.$error->getMessage()
                 );
             }
+
             return $this->redirectToRoute('app_basket_edit', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -120,36 +123,37 @@ class BasketController extends AbstractController
     public function delete(Basket $basket, Request $request): Response
     {
         if ($this->isCsrfTokenValid('delete'.$basket->getId(), $request->getPayload()->get('_token'))) {
-            if ($basket->getIdBasketProduct() !== null) {
+            if (null !== $basket->getIdBasketProduct()) {
                 $this->addFlash(
                     'error',
                     'Cannot delete basket because it has a product associated.'
                 );
             } else {
-               
-                    $this->entityManager->remove($basket);
-                    $this->entityManager->flush();
-                    $this->addFlash(
-                        'success',
-                        'Basket delete successfully!'
-                    );             
+                $this->entityManager->remove($basket);
+                $this->entityManager->flush();
+                $this->addFlash(
+                    'success',
+                    'Basket delete successfully!'
+                );
             }
         }
 
         return $this->redirectToRoute('app_basket_index', [], Response::HTTP_SEE_OTHER);
-    }    
+    }
 
     private function getViewUser($authentication, $userRepo)
     {
         $userEmail = $authentication->getLastUsername();
         $user = $userRepo->findOneBy(['email' => $userEmail]);
+
         return $user;
     }
+
     public function getWeigtTotal($basket): float
-    {        
-        $product = $basket->getIdBasketProduct();                 
-        $weightTotal = $basket->getNumProduct() * $product->getProductWeight(); 
-                
-        return $weightTotal;        
+    {
+        $product = $basket->getIdBasketProduct();
+        $weightTotal = $basket->getNumProduct() * $product->getProductWeight();
+
+        return $weightTotal;
     }
 }

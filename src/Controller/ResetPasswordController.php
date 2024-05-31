@@ -40,7 +40,6 @@ class ResetPasswordController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
             return $this->processSendingPasswordResetEmail(
                 $form->get('email')->getData(),
                 $mailer
@@ -135,18 +134,17 @@ class ResetPasswordController extends AbstractController
         $user = $this->entityManager->getRepository(User::class)->findOneBy([
             'email' => $emailFormData,
         ]);
-        
+
         // Do not reveal whether a user account was found or not.
         if (!$user) {
             $this->addFlash('reset_password_error', 'This e-mail address has not been registered.');
+
             return $this->redirectToRoute('app_forgot_password_request');
         }
 
         try {
             $resetToken = $this->resetPasswordHelper->generateResetToken($user);
-           
         } catch (ResetPasswordExceptionInterface $e) {
-            
             // If you want to tell the user why a reset email was not sent, uncomment
             // the lines below and change the redirect to 'app_forgot_password_request'.
             // Caution: This may reveal if a user is registered or not.

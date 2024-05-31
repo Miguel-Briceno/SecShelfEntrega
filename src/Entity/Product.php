@@ -151,6 +151,7 @@ class Product
 
         return $this;
     }
+
     // En la clase Product
     public function __toString()
     {

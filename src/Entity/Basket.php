@@ -27,7 +27,7 @@ class Basket
     private ?bool $incidencia = null;
 
     #[ORM\ManyToOne(inversedBy: 'idShelfBasket')]
-    private ?Shelf $idShelfBasket = null;   
+    private ?Shelf $idShelfBasket = null;
 
     #[ORM\ManyToOne(inversedBy: 'idUserBasket')]
     private ?User $IdUserBasket = null;
@@ -98,7 +98,7 @@ class Basket
         $this->idShelfBasket = $idShelfBasket;
 
         return $this;
-    }  
+    }
 
     public function getIdUserBasket(): ?User
     {

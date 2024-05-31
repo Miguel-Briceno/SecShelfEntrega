@@ -4,9 +4,9 @@ namespace App\EventSubscriber;
 
 use App\Entity\Basket;
 use Doctrine\Common\EventSubscriber;
+use Doctrine\ORM\Exception\ORMException;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use Doctrine\ORM\Exception\ORMException;
 
 class PreventBasketDeletionSubscriber implements EventSubscriber
 {
@@ -21,7 +21,7 @@ class PreventBasketDeletionSubscriber implements EventSubscriber
     {
         $entity = $args->getObject();
 
-        if ($entity instanceof Basket && $entity->getIdBasketProduct() !== null) {
+        if ($entity instanceof Basket && null !== $entity->getIdBasketProduct()) {
             $this->flashBag->add('error', 'Cannot delete basket because it has a product associated.');
 
             // Cancel deletion by throwing an exception

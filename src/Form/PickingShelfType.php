@@ -13,11 +13,11 @@ class PickingShelfType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder                       
+        $builder
             ->add('idShelfBasket', EntityType::class, [
                 'class' => Shelf::class,
                 'choice_label' => 'id',
-            ])            
+            ])
         ;
     }
 

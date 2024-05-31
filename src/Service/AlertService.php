@@ -1,14 +1,15 @@
 <?php
+
 // src/Service/AlertService.php
+
 namespace App\Service;
 
+use App\Entity\Product;
 use App\Repository\BasketRepository;
 use App\Repository\ProductRepository;
 use App\Repository\ShelfRepository;
 
-use App\Entity\Product;
-
-class AlertService 
+class AlertService
 {
     private $basketRepository;
     private $productRepository;
@@ -23,12 +24,13 @@ class AlertService
 
     public function getIncidendiaBasket($baskets): array
     {
-        $basketsIncidence = [];        
+        $basketsIncidence = [];
         foreach ($baskets as $basket) {
-            if ($basket->isIncidencia() == true) {
+            if (true == $basket->isIncidencia()) {
                 $basketsIncidence[] = $basket;
-            }            
+            }
         }
+
         return $basketsIncidence;
     }
 
@@ -38,15 +40,17 @@ class AlertService
         foreach ($basketsIncidence as $basketIncidence) {
             $shelfId = $basketIncidence->getIdShelfBasket();
             $shelf = $this->shelfRepository->find($shelfId);
-            $shelves[] = $shelf;           
-        }        
-        return $shelves;    
+            $shelves[] = $shelf;
+        }
+
+        return $shelves;
     }
 
     public function getIncidendiaProduct($basket): ?Product
     {
         $idProduct = $basket->getIdBasketProduct();
         $product = $this->productRepository->find($idProduct);
+
         return $product;
     }
 }

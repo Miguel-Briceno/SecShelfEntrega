@@ -106,10 +106,10 @@ class Shelf
 
         return $this;
     }
+
     // En la clase Shelf
     public function __toString()
     {
         return (string) $this->getId(); // Suponiendo que getId() devuelve el ID de la estantería como una cadena
     }
-
 }

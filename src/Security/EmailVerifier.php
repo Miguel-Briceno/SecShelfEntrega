@@ -10,8 +10,6 @@ use Symfony\Component\Mailer\MailerInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
-
-
 class EmailVerifier
 {
     public function __construct(
@@ -23,7 +21,6 @@ class EmailVerifier
 
     public function sendEmailConfirmation(string $verifyEmailRouteName, User $user, TemplatedEmail $email): void
     {
-        
         $signatureComponents = $this->verifyEmailHelper->generateSignature(
             $verifyEmailRouteName,
             $user->getId(),
@@ -53,5 +50,4 @@ class EmailVerifier
         $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
-    
 }
